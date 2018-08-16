@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# Arduino Library Development file
+.development
+
