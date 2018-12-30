@@ -8,22 +8,27 @@ env:
     - BOARD="arduino:avr:uno"
     - BOARD="arduino:avr:leonardo"
     - BOARD="arduino:avr:mega:cpu=atmega2560"
+
 before_install:
   # install Arduino IDE
   - wget http://downloads.arduino.cc/arduino-$ARDUINO_IDE_VERSION-linux64.tar.xz
   - tar xf arduino-$ARDUINO_IDE_VERSION-linux64.tar.xz
   - mv arduino-$ARDUINO_IDE_VERSION $HOME/arduino-ide
   - export PATH=$PATH:$HOME/arduino-ide
+
 install:
   - mkdir -p $HOME/Arduino/libraries
   - ln -s $PWD $HOME/Arduino/libraries/KiteLib
+
 branches:
   only:
     - master
+
 addons:
   apt:
     packages:
       - doxygen
+
 script:
   # build all example sketches
   - cd examples
@@ -40,6 +45,7 @@ script:
   # deploy Doxygen docs to GitHub pages
   - cd ..
   - doxygen Doxyfile
+
 deploy:
   provider: pages
   skip_cleanup: true
