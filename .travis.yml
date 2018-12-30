@@ -1,7 +1,5 @@
 sudo: false
 
-language: c
-
 branches:
   only:
     - master
@@ -21,34 +19,3 @@ deploy:
   github_token: $GH_REPO_TOKEN
   on:
     branch: master
-
-env:
-  global:
-    # keep Arduino IDE version at 1.8.1 until https://github.com/per1234/arduino-ci-script/issues/1 is resolved
-    - ARDUINO_IDE_VERSION="1.8.1"
-  matrix:
-    - BOARD="arduino:avr:uno"
-    - BOARD="arduino:avr:leonardo"
-    - BOARD="arduino:avr:mega:cpu=atmega2560"
-before_install:
-  # install Arduino IDE
-  - wget http://downloads.arduino.cc/arduino-$ARDUINO_IDE_VERSION-linux64.tar.xz
-  - tar xf arduino-$ARDUINO_IDE_VERSION-linux64.tar.xz
-  - mv arduino-$ARDUINO_IDE_VERSION $HOME/arduino-ide
-  - export PATH=$PATH:$HOME/arduino-ide
-install:
-  - mkdir -p $HOME/Arduino/libraries
-  - ln -s $PWD $HOME/Arduino/libraries/KiteLib
-script:
-  # build all example sketches
-  - cd examples
-  - for d in */ ; do
-      echo -e "\n\033[1;33mBuilding ${d%/} ... \033[0m";
-      arduino --verify --board $BOARD $PWD/${d%/}/${d%/}.ino;
-      if [ $? -ne 0 ]; then
-        echo -e "\033[1;31m${d%/} build FAILED\033[0m\n";
-        exit 1;
-      else
-        echo -e "\033[1;32m${d%/} build PASSED\033[0m\n";
-      fi
-    done
