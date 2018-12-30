@@ -1,23 +1,4 @@
 sudo: false
-language: c
-
-# deploy Doxygen docs to GitHub pages
-branches:
-  only:
-    - master
-addons:
-  apt:
-    packages:
-      - doxygen
-script:
-  - doxygen Doxyfile
-deploy:
-  provider: pages
-  skip_cleanup: true
-  local_dir: extras/html
-  github_token: $GH_REPO_TOKEN
-  on:
-    branch: master
 
 # build all examples
 env:
@@ -50,3 +31,21 @@ script:
         echo -e "\033[1;32m${d%/} build PASSED\033[0m\n";
       fi
     done
+
+# deploy Doxygen docs to GitHub pages
+branches:
+  only:
+    - master
+addons:
+  apt:
+    packages:
+      - doxygen
+script:
+  - doxygen Doxyfile
+deploy:
+  provider: pages
+  skip_cleanup: true
+  local_dir: docs/html
+  github_token: $GH_REPO_TOKEN
+  on:
+    branch: master
