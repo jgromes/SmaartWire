@@ -48,14 +48,36 @@
 #else
   #error "Sorry, this architecture is not supported by SmaartWire library."
 #endif
+
+/*!
+  \class SmaartWire
   
+  \brief Main library object to control the SmaartWire interface.
+ */
 class SmaartWire {
   public:
+    //! The default constructor.
+    /*!
+      \param pin Digital I/O pin that will be used to connect to the SmaartWire device.
+    */
     SmaartWire(int pin);
     
+    //! Start communication with the SmaartWire device.
+    /*!
+      \param speed Baud rate to use.
+    */
     void begin(long speed);
     
+    //! Function to write single byte to the device
+    /*!
+      \param b Single byte to write.
+    */
     void write(uint8_t b);
+    
+    //! Function to read single byte from the device
+    /*!
+      \return Returns single byte read from device.
+    */
     uint8_t read();
   
   private:
