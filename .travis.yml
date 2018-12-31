@@ -42,10 +42,13 @@ script:
         echo -e "\033[1;32m${d%/} build PASSED\033[0m\n";
       fi
     done
-  # deploy Doxygen docs to GitHub pages
-  - cd ..
-  - doxygen Doxyfile
-
+  # generate Doxygen documentation (only for Arduino UNO)
+  - if [ $BOARD = "arduino:avr:uno" ]; then
+      cd ..
+      doxygen Doxyfile
+    fi
+    
+# deploy Doxygen docs on master branch and only when building for Arduino UNO
 deploy:
   provider: pages
   skip_cleanup: true
@@ -53,4 +56,4 @@ deploy:
   github_token: $GH_REPO_TOKEN
   on:
     branch: master
-  verbose: true
+    condition: $BOARD = "arduino:avr:uno"
