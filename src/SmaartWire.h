@@ -27,6 +27,23 @@
   WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+/*!
+  \mainpage SmaartWire Arduino Library Documentation
+  
+  \section intro Introduction
+  This library provides Arduino support for Texas Instruments' SmaartWire devices, such as TMP107 thermometer.
+  SmaartWire is conceptually similar to other single-wire interfaces (such as 1-Wire), however, 
+  it uses plain non return to zero (NRZ) encoding, as opposed to 1-Wire's NRZ with superimposed timing pulses.
+  
+  \section credits Credits
+  Based on the OneWire library for Arduino:\n
+  https://github.com/PaulStoffregen/OneWire\n
+  by Paul Stoffregen et al.\n
+  See SmaartWire.h for license
+  
+  \copyright  Copyright (C) 2019 Jan Gromes
+*/
+
 #if ARDUINO >= 100
   #include "Arduino.h"
 #else
